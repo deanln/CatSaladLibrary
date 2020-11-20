@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Edit Book
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1> My Profile </h1>
+<h3>Name: {{ name }} </h3>
+<h3>Email: {{ email }} </h3> <br>
+<a href="update_profile" style="color:blue">Update Profile</a><br><br>
+<a href="^password/$" style="color:blue">Change Password</a>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Display Books
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center">Display Books</h1>
+<form align="center" method="GET" action="{% url 'search_books' %}">
+    <input type="text" name="search" placeholder="Search..">
+</form>
+<form align="center" method="GET" action="{% url 'sort_books' %}">
+    <select name="sort">
+        <option value="a_z">A - Z</option>
+        <option value="z_a">Z - A</option>
+        <option value="lowtohigh">Low - High</option>
+        <option value="hightolow">High - Low</option>
+    </select>
+    <input type="submit" value="Submit"/>
+</form>
+<table align="center" border="2" width="500">
+    <tr align="center">
+        <th>Title</th>
+        <th>Price</th>
+        <th>User</th>
+        <th>Wishlist</th>
+    </tr>
+    {% for book in books %}
+        <tr>
+           <td>
+              <a href="book_detail/{{ book.id }}" style="color:blue">
+                  {{ book.name }}
+              </a>
+           </td>
+            <td>
+                {{ book.price }}
+            </td>
+            <td>
+                {{ book.username }}
+            </td>
+            <td align="center">
+                <a href="/wishlist_add/{{ book.id }}" style="color:blue">Add</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

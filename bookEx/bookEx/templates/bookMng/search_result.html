@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Display Books
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center">Search Results for {{ search }}</h1>
+<table align="center" border="2" width="500">
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>User</th>
+        <th>Wishlist</th>
+    </tr>
+    {% for book in books %}
+        <tr>
+            <td>
+                <a href="book_detail/{{ book.id }}" style="color:blue">
+                    {{ book.name }}
+                </a>
+            </td>
+            <td>
+                {{ book.price }}
+            </td>
+            <td>
+                {{ book.username }}
+            </td>
+            <td align="center">
+                <a href="/wishlist_add/{{ book.id }}" style="color:blue">Add</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
