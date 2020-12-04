@@ -2,18 +2,20 @@
 {% load static %}
 
 {% block title %}
-User Registation Success
+    User Registration Success
 {% endblock title %}
 
 {% block sidenav %}
-<li>
-    <a href="/" style="color:blue"> Home </a>
-</li>
+        <li>
+            <a href="/"> Home </a>
+        </li>
 {% endblock sidenav %}
 
 {% block content %}
 <div align="center">
-    <h1> User Registration Success </h1>
-    <p> To Login, <a href="{% url 'login' %}?next=/">Click Here</a></p>
+<h1> User Registration Success </h1>
+<p>
+    To login, <a href="{% url 'login' %}?next=/"> Click Here</a>
+</p>
 </div>
 {% endblock content %}

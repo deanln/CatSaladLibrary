@@ -22,15 +22,9 @@ body {
 }
 
 #footer {
-    text-align: center;
-    font-size: 0.8em;
-    margin-top: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #FFFFFF;
-    border-top: thin solid #BBBBBB;
-    clear: both;
-    color: #969696;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 #nav li {

@@ -2,55 +2,139 @@
 {% load static %}
 
 {% block title %}
-    Display Books
+    {% if typeofpage %}
+        {{ typeofpage }}
+    {% else %}
+        Display Books
+    {% endif %}
 {% endblock title %}
 
 {% block sidenav %}
     {% for item in item_list %}
-        <li>
-            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ item.link }}">{{item.item}}</a>
         </li>
     {% endfor %}
 {% endblock sidenav %}
 
 {% block content %}
-<h1 align="center">Display Books</h1>
-<form align="center" method="GET" action="{% url 'search_books' %}">
-    <input type="text" name="search" placeholder="Search..">
+<h1 align="center" class="my-3 py-2">
+    {% if typeofpage %}
+        {{ typeofpage }}
+    {% else %}
+        Display Books
+    {% endif %}
+</h1>
+<form method="GET" action="{% url 'sort_books' %}">
+    <div class="form-row mx-auto">
+        <div class="form-group col-md-7 float-right">
+            <div class="col-md-5 float-right">
+                <input type="text" class="form-control" name="search" placeholder="Search..." value="{{ search }}">
+            </div>
+        </div>
+        <div class="form-group col-md-4 float-left">
+            <div class="col-sm-4 float-left">
+                <select name="sort" class="form-control">
+                    <option value="a_z"  {{ type.0 }}>A - Z</option>
+                    <option value="z_a" {{ type.1 }}>Z - A</option>
+                    <option value="lowtohigh" {{ type.2 }}>Low - High</option>
+                    <option value="hightolow" {{ type.3 }}>High - Low</option>
+                 </select>
+            </div>
+        </div>
+        <input type="hidden" name="where" id="where" value="{{ typeofpage }}"/>
+    </div>
+    <div class="form-row">
+         <div class="form-group mx-auto">
+            <input class="btn btn-primary" type="submit" class="form-control" value="Go"/>
+        </div>
+
+    </div>
 </form>
-<form align="center" method="GET" action="{% url 'sort_books' %}">
-    <select name="sort">
-        <option value="a_z">A - Z</option>
-        <option value="z_a">Z - A</option>
-        <option value="lowtohigh">Low - High</option>
-        <option value="hightolow">High - Low</option>
-    </select>
-    <input type="submit" value="Submit"/>
-</form>
-<table align="center" border="2" width="500">
-    <tr align="center">
-        <th>Title</th>
-        <th>Price</th>
-        <th>User</th>
-        <th>Wishlist</th>
+<br>
+{% if addtowishlist%}
+<div class="alert alert-success" align="center" role="alert">
+  {{ book.name }} Has Been Added To Wishlist
+</div>
+{% endif %}
+{% if alreadyexistsinwishlist%}
+<div class="alert alert-warning" align="center" role="alert">
+  {{ book.name }} Is already In Wishlist
+</div>
+{% endif %}
+{% if alreadyexistscart%}
+<div class="alert alert-warning" align="center" role="alert">
+  {{ book.name }} Is already In Cart
+</div>
+{% endif %}
+{% if addtocart%}
+<div class="alert alert-success" align="center" role="alert">
+  {{ book.name }} Has Been Added To Cart
+</div>
+{% endif %}
+<div class="card mx-auto" style="width: 75%;">
+    <div class="card-body">
+        <table class="card-table table table-striped" align="center">
+
+<thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+        {% if typeofpage != "My Books" %}
+            <th scope="col">Username</th>
+            <th scope="col">
+                Add To Wishlist
+            </th>
+            <th>
+                Add To Cart
+            </th>
+        {% else %}
+            <th scope="col">
+                Image
+            </th>
+            <th scope="col">
+                Delete Post
+            </th>
+            <th scope="col">
+                Edit
+            </th>
+            {% endif %}
     </tr>
+  </thead>
     {% for book in books %}
         <tr>
            <td>
-              <a href="book_detail/{{ book.id }}" style="color:blue">
+              <a href="book_detail/{{ book.id }}">
                   {{ book.name }}
               </a>
            </td>
             <td>
                 {{ book.price }}
             </td>
+            {% if typeofpage != "My Books" %}
             <td>
                 {{ book.username }}
             </td>
-            <td align="center">
-                <a href="/wishlist_add/{{ book.id }}" style="color:blue">Add</a>
+            <td>
+                <a class="btn btn-secondary" href="/wishlist_add/{{ book.id }}">Add</a>
             </td>
+            <td>
+                <a href="/cart_add/{{ book.id }}" class="btn btn-primary">Buy</a>
+            </td>
+            {% else %}
+            <td>
+                <img src="{% static book.pic_path %}" width="40" height="40">
+            </td>
+            <td>
+                <a class="btn btn-danger" href="book_delete/{{ book.id }}">Delete</a>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="editbook/{{ book.id }}">Edit</a>
+            </td>
+            {% endif %}
         </tr>
     {% endfor %}
 </table>
+    </div>
+</div>
 {% endblock content %}

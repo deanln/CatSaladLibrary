@@ -7,29 +7,75 @@
 
 {% block sidenav %}
     {% for item in item_list %}
-        <li>
-            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
-        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ item.link }}">{{item.item}}</a>
+      </li>
     {% endfor %}
 {% endblock sidenav %}
 
 {% block content %}
-<h1> Post Book </h1>
+<h1 align="center" class="my-3 py-2"> Post Book </h1>
 {% if submitted %}
-<p>
-    Post Successfully!
-</p>
-{% else %}
-    <form action="" enctype="multipart/form-data" method="post" novalidate>
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Submit">
-                </td>
-            </tr>
-        </table>
-        {% csrf_token %}
-    </form>
+<div class="alert alert-success col-md-2 mx-auto" align="center" role="alert">
+  Success! Check out <a href="mybooks"> My Books </a> To View
+</div>
 {% endif %}
+
+
+
+    <form action="" enctype="multipart/form-data" class="needs-validation" method="post" novalidate>
+        <div class="form-row">
+            <div class="col-md-2 mb-3 mx-auto">
+                <label for="name">Name</label>
+                <input  type="text" class="form-control" id="name" name="name" placeholder="name of book" required step="0.01">
+            </div>
+        </div>
+
+        <div class="form-row row">
+            <div class="col-md-2 mb-3 mx-auto">
+            <label style="align:left" for="id_web">Website</label>
+                <input type="url" class="form-control" name="web" maxlength="300" placeholder="https://www.g.com" required id="id_web" step="0.01">
+            </div>
+        </div>
+       <div class="form-row row">
+            <div class="col-md-2 mb-3 mx-auto">
+            <label style="align:left" for="id_price">Price </label>
+                <input type="number" class="form-control" placeholder="10.00" name="price" step="0.01" required id="id_price">
+            </div>
+
+        </div>
+        <div class="form-row row">
+            <div class="col-md-2 mx-auto">
+                <label align="center"  for="picture">Image </label>
+            </div>
+        </div>
+
+<!--        <div class="custom-file">-->
+<!--  <input type="file" class="custom-file-input" id="customFile">-->
+<!--  <label class="custom-file-label" for="customFile">Choose file</label>-->
+<!--</div>-->
+
+      <div class="form-row mb-3">
+            <div class="col-md-2 mb-3 mx-auto custom-file">
+                <label class="custom-file-label" for="picture">Choose file...</label>
+                <input type="file" class="custom-file-input" name="picture" id="picture" required>
+                <div class="invalid-feedback">Please Choose An Image</div>
+
+            </div>
+
+
+
+        </div>
+    <div class="form-row" align="center">
+      <div class="col-md-2 mb-3 mx-auto">
+        <input class="btn btn-primary float-left" type="submit" value="Submit">
+      </div>
+
+
+
+    </div>
+        {% csrf_token %}
+
+    </form>
+
 {% endblock content %}

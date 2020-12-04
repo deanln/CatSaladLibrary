@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-   Book Detail
+    Post Book
 {% endblock title %}
 
 {% block sidenav %}
@@ -14,5 +14,10 @@
 {% endblock sidenav %}
 
 {% block content %}
-<h1 align="center"> {{ book.name }} Has Been Removed from Wishlist </h1>
+    <h1 align="center" class="display-5"> The Following Book(s) Have Been Purchased  </h1>
+    <ul class="list-group">
+    {% for book in books %}
+        <li class="list-group-item mx-auto w-25" align="center">{{ book.name }}</li>
+    {% endfor %}
+    </ul>
 {% endblock content %}

@@ -2,47 +2,29 @@
 {% load static %}
 
 {% block title %}
-    Books Detail
+    Book Detail
 {% endblock title %}
 
 {% block sidenav %}
     {% for item in item_list %}
-        <li>
-            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
-        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ item.link }}">{{item.item}}</a>
+      </li>
     {% endfor %}
 {% endblock sidenav %}
 
 {% block content %}
-<h1 align="center">{{ book.name }} Page</h1>
-<table align="center" border="2" width="500">
-    <tr align="center">
-        <th>
-            Name
-        </th>
-        <th>
-            Price
-        </th>
-        <th>
-            User
-        </th>
-        <th>
-            Picture
-        </th>
-    </tr>
-    <tr>
-        <td>
-            {{ book.name }}
-        </td>
-        <td>
-            {{ book.price }}
-        </td>
-        <td>
-            {{ book.username }}
-        </td>
-        <td align="center">
-            <img src="{% static book.pic_path %}" width="40" height="40">
-        </td>
-    </tr>
-</table>
+
+<div class="card mx-auto my-3" style="width: 18rem;" align="center">
+    <img alt="Card image cap" class="card-img-top" src="{% static book.pic_path %}">
+  <div class="card-body">
+    <h5 class="card-title">{{ book.name | title }}</h5>
+    <p class="card-text">
+        Price: ${{ book.price}} <br>
+        User: {{ book.username}}<br><br>
+         <a class="btn btn-info"  target="_blank" href="{{book.web}}">External Website</a>
+    </p>
+
+  </div>
+</div>
 {% endblock content %}

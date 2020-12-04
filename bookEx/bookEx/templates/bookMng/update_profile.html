@@ -2,34 +2,93 @@
 {% load static %}
 
 {% block title %}
-    Post Book
+    Edit Profile
 {% endblock title %}
 
 {% block sidenav %}
     {% for item in item_list %}
-        <li>
-            <a href="{{ item.link }}" style="color:blue"> {{ item.item }} </a>
-        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="{{ item.link }}">{{item.item}}</a>
+      </li>
     {% endfor %}
 {% endblock sidenav %}
 
 {% block content %}
-<h1> Update Profile </h1>
+<h1 align="center" class="my-3 py-2"> Edit profile </h1>
 {% if submitted %}
-    <p>
+    <p align="center">
         Post Successful!
     </p>
 {% else %}
-    <form action="" enctype="multipart/form-data" method="post" novalidate>
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td colspan="2">
-                    <input type="submit" value="Submit">
-                </td>
-            </tr>
-        </table>
+
+       {% if form.errors %}
+    <div class="alert alert-danger col-md-3 mb-3 mx-auto" role="alert">
+      {% for field in form %}
+
+           {% for error in field.errors %}
+                <b>{{field.label}}:</b> {{ error|escape }}<br><br>
+           {% endfor %}
+      {% endfor %}
+        </div>
+{% endif %}
+    <form action="" enctype="multipart/form-data" class="needs-validation" method="post" novalidate>
+        <div class="form-row">
+            <div class="col-md-3 mx-auto mb-3">
+                <label for="first_name">First Name</label>
+                <input class="form-control" id="first_name" type="text" name="first_name" placeholder="Bill" value="{{user.first_name}}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3 mx-auto mb-3">
+                <label for="last_name">Last Name</label>
+                <input class="form-control" id="last_name" type="text" name="last_name" placeholder="Thomas" value="{{user.last_name}}" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3 mx-auto mb-3">
+                <label for="email">Email</label>
+                <input class="form-control"  type="email" name="email" placeholder="John@gmail.com" value="{{user.email}}" required id="email">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3 mx-auto mb-3">
+                <input class="btn btn-primary" type="submit" value="Save">
+                <a href="/myprofile" class="btn btn-danger float-right">Cancel</a>
+            </div>
+        </div>
+
+
         {% csrf_token %}
     </form>
+
 {% endif %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+<script>
+            $('.custom-file input').change(function(e){
+               e.target.files.length && $('.custom-file-label').html(e.target.files[0].name)
+            })
+        </script>
+
 {% endblock content %}

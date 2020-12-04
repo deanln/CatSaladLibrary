@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Post Book
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li class="nav-item">
+            <a class="nav-link " href="{{ item.link }}">{{item.item}}</a>
+      </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center" class="display-4 my-3 py-2" > My Cart </h1>
+
+{% if deletefromcart%}
+<div class="alert alert-danger" align="center" role="alert">
+  {{ book.name }} Has Been Removed From Cart
+</div>
+{% endif %}
+
+<div class="card mx-auto" style="width: 75%;">
+    <div class="card-body">
+        <table class="card-table table table-striped" align="center">
+    <tr align="center">
+        <th>Title</th>
+        <th>Price</th>
+        <th>User</th>
+        <th>Cart</th>
+    </tr>
+    {% for book in books %}
+        <tr align="center">
+            <td>
+                <a href="book_detail/{{ book.0.id }}" style="color:blue">
+                    {{ book.0.name }}
+                </a>
+            </td>
+            <td>
+                {{ book.0.price }}
+            </td>
+            <td>
+                {{ book.0.username }}
+            </td>
+            <td>
+                <a href="cart_remove/{{ book.1.id }}" class="btn btn-danger btn-sm"> Remove </a>
+            </td>
+        </tr>
+    {% endfor %}
+    <tr align="center">
+        <th style="text-align:right" colspan="2">Total</th>
+        <th>{{ total }}</th>
+        <th><a class="btn btn-primary btn-sm" href="cart_purchase">Purchase</a></th>
+    </tr>
+</table>
+    </div>
+</div>
+{% endblock content %}
