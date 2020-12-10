@@ -15,5 +15,42 @@
 {% endblock sidenav %}
 
 {% block content %}
-<h1 align="center" class="my-3 py-2"> Welcome to Book Exchange System </h1>
+<div id="carousel" class="carousel slide bg-blue" style="height: 855px; background-color: blue" data-ride="carousel">
+  <ol class="carousel-indicators ">
+    <li data-target="#carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel" data-slide-to="1"></li>
+    <li data-target="#carousel" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner h-100">
+    <div class="carousel-item active h-100">
+      <img src="{% static 'book1.jpg' %}" class="d-flex w-100 h-100" alt="Book Tunnel">
+      <div class="carousel-caption" style="top: 40%;">
+        <h1 style="text-shadow: 4px 4px 4px #000000;">Welcome to CatSalad Library</h1>
+        <p><a href="displaybooks" style="color:white ">Look through the collection</a></p>
+      </div>
+    </div>
+    <div class="carousel-item h-100">
+      <img src="{% static 'book2.jpg' %}" class="d-flex w-100 h-100" alt="Book Turning">
+      <div class="carousel-caption" style="top: 40%;">
+        <h1 style="text-shadow: 4px 4px 4px #000000;">Find What You Need, Discover What You Want</h1>
+        <p><a href="displaybooks" style="color:white ">Look through the collection</a></p>
+      </div>
+    </div>
+    <div class="carousel-item h-100">
+      <img src="{% static 'book3.jpg' %}" class="d-flex w-100 h-100" alt="Book Cat">
+      <div class="carousel-caption" style="top: 40%;">
+        <h1 style="text-shadow: 4px 4px 4px #000000;">Buy and Sell Books</h1>
+        <p><a href="postbook" style="color:white ">Add to the collection</a></p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 {% endblock content %}
